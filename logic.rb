@@ -11,7 +11,7 @@ class Logic
     url = resp.base_uri.to_s
     source = resp.read
     content = Readability::Document.new(source,  :tags => %w[]).content
-    title = Nokogiri::HTML(source).css('h1')[0].text
+    title = Nokogiri::HTML(source).css('h1')[0].text.strip
     length = content.length
     ratio = nil
     if @content
@@ -51,14 +51,14 @@ class Logic
     strings = [
       "The Wikipedia page for \"#{title}\" is shorter than the article on Transhumanism",
       "\"#{title}\" is shorter than the Wikipedia for Transhumanism ",
-      "shorter then Transhumanism: #{title}",
+      "shorter then transhumanism: #{title}",
       "The wiki for \"#{title}\" is shorter than that of Transhumanism",
-      "The wiki for transhumanism is #{(1/ratio).round 2} times longer than that of #{title}",
+      "The wiki for transhumanism is #{(1/ratio).round 2} times longer than that of \"#{title}\"",
     ]
     if ratio >= 0.01
       strings.concat [
         "On Wikipedia, \"#{title}\" is #{(ratio*100).round 2}% the length of \"Transhumanism\"",
-        "Wiki for\" #{title}\" is #{ratio.round 2}x the length of \"Transhumanism\"",
+        "Wiki for \"#{title}\" is #{ratio.round 2}x the length of \"Transhumanism\"",
       ]
     end
 
