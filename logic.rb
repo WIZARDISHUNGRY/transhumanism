@@ -2,7 +2,12 @@ require 'readability'
 require 'open-uri'
 
 class Logic
+
   def initialize
+    load
+  end
+
+  def load
     @content = process('http://en.wikipedia.org/wiki/Transhumanism')
   end
 
