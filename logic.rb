@@ -10,7 +10,10 @@ class Logic
     resp = open(url)
     url = resp.base_uri.to_s
     source = resp.read
-    content = Readability::Document.new(source,  :tags => %w[]).content
+    content = Readability::Document.new(source,
+      tags: %w[],
+      blacklist: '.references, .reference, .infobox, .mw-editsection, #External_links, #See_also, #Further_reading',
+    ).content.strip
     title = Nokogiri::HTML(source).css('h1')[0].text.strip
     length = content.length
     ratio = nil
@@ -23,6 +26,7 @@ class Logic
       'length' => length,
       'title' => title,
       'ratio' => ratio,
+      'content' => content,
     }
   end
 
