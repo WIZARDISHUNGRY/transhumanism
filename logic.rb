@@ -12,7 +12,7 @@ class Logic
     source = resp.read
     content = Readability::Document.new(source,
       tags: %w[],
-      blacklist: '.references, .reference, .infobox, .mw-editsection, #External_links, #See_also, #Further_reading',
+      blacklist: '.references, .reference, .infobox, .mw-editsection, #External_links, #See_also, #Further_reading, #persondata, .mw-headline',
     ).content.strip
     title = Nokogiri::HTML(source).css('h1')[0].text.strip
     length = content.length
