@@ -44,7 +44,10 @@ class Logic
 
   def seek 
     target = nil
-    until target and target['length'] < @content['length']
+    until target and target['length'] < @content['length'] and !target['url'].match /:\/\/.*\/.*:.*/
+      if target
+        sleep 1
+      end
       target = process metaseek
     end
     return target
