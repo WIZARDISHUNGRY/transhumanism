@@ -35,13 +35,18 @@ class Logic
     }
   end
 
+  def metaseek(url="https://en.wikipedia.org/wiki/Special:RandomInCategory/Main%20topic%20classifications")
+    resp = open(url)
+    url = resp.base_uri.to_s
+    slug = url.gsub /.*\//, ''
+    return "https://en.wikipedia.org/wiki/Special:RandomInCategory/#{slug}"
+  end
+
   def seek 
     target = nil
     until target and target['length'] < @content['length']
-      target = process
+      target = process metaseek
     end
-
-
     return target
   end
 
