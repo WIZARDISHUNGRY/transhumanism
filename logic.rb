@@ -4,6 +4,7 @@ require 'open-uri'
 class Logic
 
   def initialize
+    @used = []
     load
   end
 
@@ -44,11 +45,11 @@ class Logic
 
   def seek 
     target = nil
-    until target and target['length'] < @content['length'] and !target['url'].match /:\/\/.*\/.*:.*/
+    until target and target['length'] < @content['length'] and !target['url'].match /:\/\/.*\/.*:.*/ and !@used.include? target['url']
       if target
         sleep 1
       end
-      target = process metaseek
+      target = process #removed metaseek here
     end
     return target
   end
@@ -64,6 +65,8 @@ class Logic
     url = target["url"]
     title = target["title"]
     ratio = target["ratio"]
+
+    @used.push url
 
     strings = [
       "The Wikipedia page for \"#{title}\" is shorter than the article on Transhumanism",
