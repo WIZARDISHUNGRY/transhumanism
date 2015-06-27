@@ -24,12 +24,12 @@ class MyBot < Ebooks::Bot
 
   def on_startup
     @logic = Logic.new
-    tweet(@logic.generate)
+    #tweet(@logic.generate)
     scheduler.every '24h' do
       @logic.load
       log "Reloaded logic"
     end
-    scheduler.every '30m' do
+    scheduler.every '90m' do
       # Tweet something every 24 hours
       # See https://github.com/jmettraux/rufus-scheduler
       # tweet("hi")
@@ -60,7 +60,7 @@ class MyBot < Ebooks::Bot
 end
 
 # Make a MyBot and attach it to an account
-MyBot.new("transhumanism_bot") do |bot|
+MyBot.new("Transhuman_bot") do |bot|
   config = YAML.load_file('secrets.yml')
   bot.access_token = config['access_token']
   bot.access_token_secret = config['access_token_secret']

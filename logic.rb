@@ -9,10 +9,10 @@ class Logic
   end
 
   def load
-    @content = process('http://en.wikipedia.org/wiki/Transhumanism')
+    @content = process('https://en.wikipedia.org/wiki/Transhumanism')
   end
 
-  def process(url='http://en.wikipedia.org/wiki/Special:Random')
+  def process(url='https://en.wikipedia.org/wiki/Special:Random')
     resp = open(url)
     url = resp.base_uri.to_s
     source = resp.read
