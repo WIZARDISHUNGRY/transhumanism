@@ -8,12 +8,16 @@ class Logic
     load
   end
 
+  def myopen(url)
+    open(url, {ssl_verify_mode: OpenSSL::SSL::VERIFY_NONE})
+  end
+
   def load
     @content = process('https://en.wikipedia.org/wiki/Transhumanism')
   end
 
   def process(url='https://en.wikipedia.org/wiki/Special:Random')
-    resp = open(url)
+    resp = myopen(url)
     url = resp.base_uri.to_s
     source = resp.read
     content = Readability::Document.new(source,
@@ -37,7 +41,7 @@ class Logic
   end
 
   def metaseek(url="https://en.wikipedia.org/wiki/Special:RandomInCategory/Main%20topic%20classifications")
-    resp = open(url)
+    resp = myopen(url)
     url = resp.base_uri.to_s
     slug = url.gsub /.*\//, ''
     return "https://en.wikipedia.org/wiki/Special:RandomInCategory/#{slug}"
