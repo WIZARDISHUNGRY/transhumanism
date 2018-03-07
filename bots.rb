@@ -29,7 +29,7 @@ class MyBot < Ebooks::Bot
       @logic.load
       log "Reloaded logic"
     end
-    scheduler.every '90m' do
+    scheduler.every '30m' do
       # Tweet something every 24 hours
       # See https://github.com/jmettraux/rufus-scheduler
       # tweet("hi")
